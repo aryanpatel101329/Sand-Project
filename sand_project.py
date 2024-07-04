@@ -14,7 +14,9 @@ size = 9
 g = 0.005
 colour = 'blue'
 
+# Initialising Collision Map
 collision = (w // size) * [h]
+
 
 class Particle:
     def __init__(self, x0, y0, x1, y1, space):
@@ -119,16 +121,19 @@ space = Canvas(root, bg="black", height=h+5, width=w)
 space.create_line(0, h, w+10, h, fill="white", width=4)
 space.grid(row = 0, column = 0, rowspan = 200, padx = 10, pady = 10)
 
+
 # Adding particles with hold and click
 space.bind("<B1-Motion>", Particle.add_particle)
 space.bind("<Button-1>", Particle.add_particle)
+
 
 # Settings Title
 settings_title = ttk.Label(root, text="Experimental Settings")
 settings_title.grid(row = 50, column=2, columnspan=40, padx=20)
 settings_title.configure(font=("Consolas", 18, "bold"))
 
-# NOTE: Gravity Slider [SHOW VALUE AS UPDATES]
+
+# Gravity Slider
 g_slider = ttk.Scale(root, from_ = 0, to = 30, orient = "horizontal")
 g_slider.set(15)
 g_label = ttk.Label(root, text="Gravity")
@@ -145,7 +150,7 @@ g_low.configure(font=("Arial", 9))
 g_high.configure(font=("Arial", 9))
 
 
-# NOTE: Particle Frequency Slider [SHOW VALUE AS UPDATES]
+# Particle Frequency Slider
 freq_slider = ttk.Scale(root, from_ = 0, to = 20, orient = "horizontal")
 freq_slider.set(10)
 freq_label = ttk.Label(root, text="Particle Frequency")
