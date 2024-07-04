@@ -14,7 +14,7 @@ h = 600
 w = 900
 # Default at 3
 size = 3
-g = 0.006
+g = 0.005
 colour = 'blue'
 
 collision = (w // size) * [h]
@@ -123,7 +123,7 @@ root.geometry("1234x630")
 root.resizable(False, False)
 space = Canvas(root, bg="black", height=h+5, width=w)
 space.create_line(0, h, w+10, h, fill="white", width=4)
-space.grid(row = 0, column = 0, rowspan = 9, padx = 10, pady = 10)
+space.grid(row = 0, column = 0, rowspan = 200, padx = 10, pady = 10)
 
 # Adding particles with hold and click
 space.bind("<B1-Motion>", Particle.add_particle)
@@ -131,7 +131,7 @@ space.bind("<Button-1>", Particle.add_particle)
 
 # Settings Title
 settings_title = ttk.Label(root, text="Experimental Settings")
-settings_title.grid(row = 2, column=2, columnspan=2)
+settings_title.grid(row = 50, column=2, columnspan=20)
 settings_title.configure(font=("Consolas", 15, "bold"))
 
 # NOTE: Gravity Slider [SHOW VALUE AS UPDATES]
@@ -139,26 +139,35 @@ g_slider = ttk.Scale(root, from_ = 0, to = 30, orient = "horizontal")
 g_slider.set(15)
 g_label = ttk.Label(root, text="Gravity")
 
-g_label.grid(row = 3, column = 2, padx = 10)
-g_slider.grid(row = 3, column = 3)
+g_label.grid(row = 80, column = 2, padx = 10)
+g_slider.grid(row = 80, column = 3, columnspan = 18)
 g_label.configure(font=("Consolas", 10, "bold"))
+
+# Number Labels
+g_low = ttk.Label(root, text="1")
+g_high = ttk.Label(root, text="100")
+g_low.grid(row = 81, column = 6)
+g_high.grid(row = 81, column = 17)
+g_low.configure(font=("Arial", 9))
+g_high.configure(font=("Arial", 9))
+
 
 
 # NOTE: Particle Frequency Slider [SHOW VALUE AS UPDATES]
 freq_slider = ttk.Scale(root, from_ = 0, to = 20, orient = "horizontal")
 freq_slider.set(10)
 freq_label = ttk.Label(root, text="Particle Frequency")
-freq_label.grid(row = 4, column = 2, padx = 10)
-freq_slider.grid(row = 4, column = 3, padx = 5)
+freq_label.grid(row = 110, column = 2, padx = 10)
+freq_slider.grid(row = 110, column = 3, padx = 5, columnspan = 18)
 freq_label.configure(font=("Consolas", 10, "bold"))
 
 # Colour Selection for particles
 options = ["Blue", "Red", "Orange", "Yellow", "Green", "Pink", "Purple", "White"]
 colour_choose = ttk.Combobox(root, values = options)
 colour_choose.current(0)
-colour_choose.grid(row = 5, column = 3, padx = 2)
+colour_choose.grid(row = 140, column = 3, padx = 2, columnspan = 18)
 colour_label = ttk.Label(root, text="Particle Colour")
-colour_label.grid(row = 5, column = 2, padx = 2)
+colour_label.grid(row = 140, column = 2, padx = 2)
 colour_label.configure(font=("Consolas", 10, "bold"))
 
 # Run
