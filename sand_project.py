@@ -143,14 +143,13 @@ g_label.grid(row = 80, column = 2, padx = 10)
 g_slider.grid(row = 80, column = 3, columnspan = 18)
 g_label.configure(font=("Consolas", 10, "bold"))
 
-# Number Labels
+# Gravity Number Labels
 g_low = ttk.Label(root, text="1")
 g_high = ttk.Label(root, text="100")
 g_low.grid(row = 81, column = 6)
-g_high.grid(row = 81, column = 17)
+g_high.grid(row = 81, column = 18)
 g_low.configure(font=("Arial", 9))
 g_high.configure(font=("Arial", 9))
-
 
 
 # NOTE: Particle Frequency Slider [SHOW VALUE AS UPDATES]
@@ -160,6 +159,15 @@ freq_label = ttk.Label(root, text="Particle Frequency")
 freq_label.grid(row = 110, column = 2, padx = 10)
 freq_slider.grid(row = 110, column = 3, padx = 5, columnspan = 18)
 freq_label.configure(font=("Consolas", 10, "bold"))
+
+# Frequency Number Labels
+freq_low = ttk.Label(root, text="1")
+freq_high = ttk.Label(root, text="10")
+freq_low.grid(row = 111, column = 6)
+freq_high.grid(row = 111, column = 18)
+freq_low.configure(font=("Arial", 9))
+freq_high.configure(font=("Arial", 9))
+
 
 # Colour Selection for particles
 options = ["Blue", "Red", "Orange", "Yellow", "Green", "Pink", "Purple", "White"]
