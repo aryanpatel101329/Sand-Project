@@ -1,4 +1,4 @@
-from tkinter import Tk, Canvas, ttk, DoubleVar
+from tkinter import Tk, Canvas, ttk, Button
 from math import floor, ceil
 from random import choice, seed
 from datetime import datetime
@@ -9,7 +9,7 @@ seed(datetime.now().timestamp())
 # Initial parameters
 h = 600
 w = 900
-# Default at 3
+# Default at 9
 size = 9
 g = 0.005
 colour = 'blue'
@@ -17,6 +17,8 @@ colour = 'blue'
 # Initialising Collision Map
 collision = (w // size) * [h]
 
+# List of all particles
+particle_list = []
 
 class Particle:
     def __init__(self, x0, y0, x1, y1, space):
@@ -105,11 +107,20 @@ class Particle:
         if (x < w-1) and (y < collision[index]):
             new_particle = Particle(x, y, x+size, y+size, space)
             new_particle.move_particle(50)
+            particle_list.append(new_particle)
 
     def update_collision_map(self):
         # Need to get x coord, find last block placed
         index = self.x0 // size
         collision[index] -= size if (collision[index] > 0) else 0
+
+    def reset():
+        space.delete("all")
+        space.create_line(0, h, w+10, h, fill="white", width=4)
+        for i in range(len(collision)):
+            collision[i] = h
+        for particle in particle_list:
+            del particle
 
 
 # Basic TK
@@ -129,7 +140,7 @@ space.bind("<Button-1>", Particle.add_particle)
 
 # Settings Title
 settings_title = ttk.Label(root, text="Experimental Settings")
-settings_title.grid(row = 50, column=2, columnspan=40, padx=20)
+settings_title.grid(row = 45, column=2, columnspan=40, padx=20)
 settings_title.configure(font=("Consolas", 18, "bold"))
 
 
@@ -137,15 +148,15 @@ settings_title.configure(font=("Consolas", 18, "bold"))
 g_slider = ttk.Scale(root, from_ = 0, to = 30, orient = "horizontal")
 g_slider.set(15)
 g_label = ttk.Label(root, text="Gravity")
-g_label.grid(row = 80, column = 2, padx = 10)
-g_slider.grid(row = 80, column = 3, columnspan = 18)
+g_label.grid(row = 75, column = 2, padx = 10)
+g_slider.grid(row = 75, column = 3, columnspan = 18)
 g_label.configure(font=("Consolas", 10, "bold"))
 
 # Gravity Number Labels
 g_low = ttk.Label(root, text="1")
 g_high = ttk.Label(root, text="100")
-g_low.grid(row = 81, column = 6)
-g_high.grid(row = 81, column = 18)
+g_low.grid(row = 76, column = 6)
+g_high.grid(row = 76, column = 18)
 g_low.configure(font=("Arial", 9))
 g_high.configure(font=("Arial", 9))
 
@@ -154,15 +165,15 @@ g_high.configure(font=("Arial", 9))
 freq_slider = ttk.Scale(root, from_ = 0, to = 20, orient = "horizontal")
 freq_slider.set(10)
 freq_label = ttk.Label(root, text="Particle Frequency")
-freq_label.grid(row = 110, column = 2, padx = 10)
-freq_slider.grid(row = 110, column = 3, padx = 5, columnspan = 18)
+freq_label.grid(row = 100, column = 2, padx = 10)
+freq_slider.grid(row = 100, column = 3, padx = 5, columnspan = 18)
 freq_label.configure(font=("Consolas", 10, "bold"))
 
 # Frequency Number Labels
 freq_low = ttk.Label(root, text="1")
 freq_high = ttk.Label(root, text="10")
-freq_low.grid(row = 111, column = 6)
-freq_high.grid(row = 111, column = 18)
+freq_low.grid(row = 101, column = 6)
+freq_high.grid(row = 101, column = 18)
 freq_low.configure(font=("Arial", 9))
 freq_high.configure(font=("Arial", 9))
 
@@ -171,10 +182,16 @@ freq_high.configure(font=("Arial", 9))
 options = ["Blue", "Red", "Orange", "Yellow", "Green", "Pink", "Purple", "White"]
 colour_choose = ttk.Combobox(root, values = options)
 colour_choose.current(0)
-colour_choose.grid(row = 140, column = 3, padx = 2, columnspan = 23)
+colour_choose.grid(row = 125, column = 3, padx = 2, columnspan = 23)
 colour_label = ttk.Label(root, text="Particle Colour")
-colour_label.grid(row = 140, column = 2, padx = 2)
+colour_label.grid(row = 125, column = 2, padx = 2)
 colour_label.configure(font=("Consolas", 10, "bold"))
+
+
+# Reset Button
+reset = Button(root, text = "Reset", command = Particle.reset)
+reset.grid(row = 150, column = 3)
+
 
 # Run
 root.mainloop()
